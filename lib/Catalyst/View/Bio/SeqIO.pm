@@ -1,5 +1,5 @@
 package Catalyst::View::Bio::SeqIO;
-# ABSTRACT: use Bio::SeqIO as a Catalyst View
+# ABSTRACT: use Bio::SeqIO as a Catalyst view
 
 use Moose;
 use namespace::autoclean;
