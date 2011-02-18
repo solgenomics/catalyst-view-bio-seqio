@@ -7,7 +7,7 @@ use lib "$FindBin::Bin/lib";
 
 use Catalyst::Test 'TestApp';
 
-is get('/fasta'), <<EOT, 'Fasta rendering';
+my $fasta_output = <<EOT;
 >a100
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -20,7 +20,12 @@ TTTTTTTTTTTTTTTTTTTT
 CCCCCCCCCCCCCCCCCCCCCCCC
 EOT
 
+my $fasta = request('/fasta');
+is $fasta->content,   $fasta_output, 'Fasta rendering';
+is $fasta->content_type, 'application/x-fasta', 'content-type is right';
 
-
+my $default = request('/');
+is $default->content, $fasta_output, 'Default format';
+is $default->content_type, 'application/x-fasta', 'content-type is right';
 
 done_testing;

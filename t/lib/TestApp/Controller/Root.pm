@@ -10,7 +10,7 @@ __PACKAGE__->config(
     namespace => '',
 );
 
-sub index : Path Args(1) {
+sub test_seqio : Path Args(1) {
     my ( $self, $c, $format ) = @_;
 
     $c->stash(
@@ -20,6 +20,10 @@ sub index : Path Args(1) {
             Bio::PrimarySeq->new( -id => 't200', -seq => 'T'x200 ),
             Bio::PrimarySeq->new( -id => 'c24',  -seq => 'C'x24 ),
           ]);
+}
+
+sub default :Private {
+    shift->test_seqio( shift );
 }
 
 sub end : ActionClass('RenderView') {}
