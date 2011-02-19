@@ -11,6 +11,7 @@ extends 'Catalyst::View';
 
 =head1 SYNOPSIS
 
+    ## subclassing to making your view
     package MyApp::View::SeqIO;
     use Moose;
     extends 'Catalyst::View::Bio::SeqIO';
@@ -26,16 +27,31 @@ extends 'Catalyst::View';
         },
       );
 
+    ## using in a controller
+
+    sub foo :Path('/foo') {
+        my ( $self, $c ) = @_;
+
+        # get an array of Bio::SeqI-compliant objects.
+        my @sequences = get_sequences_somehow();
+
+        # set the sequences and the format in the stash, and forward
+        # to your subclassed view
+        $c->stash->{sequences}    = \@sequences;
+        $c->stash->{seqio_format} = 'genbank';
+        $c->forward( 'View::SeqIO' );
+    }
+
 =head1 ATTRIBUTES
 
 Like all Catalyst components, the values for these can be set in a
-C<__PACKAGE__-&gtconfig> statement or in your myapp.conf file.
+package config statement or in your myapp.conf file.
 
 =cut
 
 =head2 sequences_stash_key
 
-Stash key for arrayref of sequences to print out.  Default
+Stash key to use for arrayref of sequences to print out.  Default
 'sequences'.
 
 =cut
@@ -48,7 +64,7 @@ has 'sequences_stash_key' => (
 
 =head2 format_stash_key
 
-Stash key under which to look for the sequence format.  Default
+Stash key to use for the sequence format.  Default
 'seqio_format'.
 
 =cut
