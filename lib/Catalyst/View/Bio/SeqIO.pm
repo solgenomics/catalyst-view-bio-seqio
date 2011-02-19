@@ -42,7 +42,7 @@ extends 'Catalyst::View';
         $c->forward( 'View::SeqIO' );
     }
 
-=head1 ATTRIBUTES
+=head1 CONFIGURABLE ATTRIBUTES
 
 Like all Catalyst components, the values for these can be set in a
 package config statement or in your myapp.conf file.
@@ -80,6 +80,10 @@ has 'format_stash_key' => (
 Stash key under which to look for a custom-constructed
 Bio::SeqIO-compliant object to use for rendering sequences.  Default
 'seqio_object'.
+
+If a SeqIO object is provided in the stash under this key, this view
+will use that for rendering the sequences, instead of constructing its
+own SeqIO object.
 
 =cut
 
