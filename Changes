@@ -1,3 +1,9 @@
+{{NEXT}
+
+0.02   2011-02-20
+
+* fix missing Catalyst::Action::RenderView dep
+
 0.01   2011-02-19
 
 * initial release
